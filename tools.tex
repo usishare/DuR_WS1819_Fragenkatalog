@@ -1,0 +1,878 @@
+% -----
+% achim
+% -----
+%
+%
+%
+\newenvironment{achim}
+{%
+  \begingroup
+    \par
+    \color{Blue}%
+}%
+{%
+  \endgroup
+}%
+
+% -------
+% karsten
+% -------
+%
+%
+%
+\newenvironment{karsten}
+{%
+  \begingroup
+    \par
+    \color{Red}%
+}%
+{%
+  \endgroup
+}%
+
+% ------
+% moritz
+% ------
+%
+%
+%
+\newenvironment{moritz}
+{%
+  \begingroup
+    \par
+    \color{Green}%
+}%
+{%
+  \endgroup
+}%
+
+% ----
+% KV16
+% ----
+%
+% This environment draws a 4x4 KV-map within a tikz environment.
+%
+\newenvironment{KV16}
+{%
+  % ----------------------------------------------------------------------------
+  % Public functions                                            Public functions
+  % ----------------------------------------------------------------------------
+  % --------
+  % nolabels
+  % --------
+  %
+  % disable input labels
+  %
+  \newcommand{\nolabels}
+  {%
+    \renewcommand{\showlabels}{FALSE}%
+  }%
+  % ---------
+  % noindices
+  % ---------
+  %
+  % disable index numbers
+  %
+  \newcommand{\noindices}
+  {%
+    \renewcommand{\showindices}{FALSE}%
+  }%
+  % -----------
+  % clearoutput
+  % -----------
+  %
+  % empty all function values
+  %
+  \newcommand{\clearoutput}
+  {%
+    \setoutput{0}{}%
+    \setoutput{1}{}%
+    \setoutput{2}{}%
+    \setoutput{3}{}%
+    \setoutput{4}{}%
+    \setoutput{5}{}%
+    \setoutput{6}{}%
+    \setoutput{7}{}%
+    \setoutput{8}{}%
+    \setoutput{9}{}%
+    \setoutput{10}{}%
+    \setoutput{11}{}%
+    \setoutput{12}{}%
+    \setoutput{13}{}%
+    \setoutput{14}{}%
+    \setoutput{15}{}%
+  }%
+  % --------
+  % function
+  % --------
+  %
+  % #1  name of the function
+  %
+  \newcommand{\function}[1]
+  {%
+    \renewcommand{\valuefname}{##1}%
+  }%
+  % ------
+  % inputA
+  % ------
+  %
+  % set the name of the input variable that toggles with the lowest frequency
+  %
+  % #1  name of the variable
+  %
+  \newcommand{\inputA}[1]
+  {%
+    \renewcommand{\valueinputA}{##1}%
+  }%
+  % ------
+  % inputB
+  % ------
+  %
+  % #1  name of the variable
+  %
+  \newcommand{\inputB}[1]
+  {%
+    \renewcommand{\valueinputB}{##1}%
+  }%
+  % ------
+  % inputC
+  % ------
+  %
+  % #1  name of the variable
+  %
+  \newcommand{\inputC}[1]
+  {%
+    \renewcommand{\valueinputC}{##1}%
+  }%
+  % ------
+  % inputD
+  % ------
+  %
+  % set the name of the input variable that toggles with the highest frequency
+  %
+  % #1  name of the variable
+  %
+  \newcommand{\inputD}[1]
+  {%
+    \renewcommand{\valueinputD}{##1}%
+  }%
+  % -------
+  % minterm
+  % -------
+  %
+  % #1  minterm number 0 ... 15
+  %
+  \newcommand{\minterm}[1]
+  {%
+    \setoutput{##1}{1}%
+  }%
+  % -------
+  % maxterm
+  % -------
+  %
+  % #1  maxterm number 0 ... 15
+  %
+  \newcommand{\maxterm}[1]
+  {%
+    \setoutput{##1}{0}%
+  }%
+  % --------
+  % dontcare
+  % --------
+  %
+  % #1  don't care number 0 ... 15
+  %
+  \newcommand{\dontcare}[1]
+  {%
+    \setoutput{##1}{X}%
+  }%
+  % -----
+  % areas
+  % -----
+  %
+  % define areas to fill
+  %
+  \newcommand{\areas}[1]
+  {%
+    \renewcommand{\printareas}{##1}
+  }%
+  % --------
+  % colorize
+  % --------
+  %
+  % #1 top row          (1..m)
+  % #2 left column      (1..n)
+  % #3 width            (number of columns)
+  % #4 height           (number of rows)
+  % #5 top    reduction (pt, cm, ...)
+  % #6 bottom reduction (pt, cm, ...)
+  % #7 left   reduction (pt, cm, ...)
+  % #8 right  reduction (pt, cm, ...)
+  % #9 color
+  %
+  \newcommand{\colorize}[9]
+  {%
+    \begin{scope}[xshift=0cm + (##2 - 1) * 1cm, yshift=4cm - (##1 - 1) * 1cm]
+      % background
+      \ifthenelse{\equal{\showtype}{FILL}}%
+      {%
+        \fill
+        [
+          opacity=0.5,
+          fill=##9,
+          rounded corners
+        ] (0cm + ##7, 0cm - ##5) rectangle (1cm * ##3 - ##8, -1cm * ##4 + ##6);
+      }%
+      {\relax}%
+      % border
+      \ifthenelse{\equal{\showtype}{DRAW}}%
+      {%
+        \draw
+        [
+          draw=##9,
+          line width=1pt,
+          rounded corners
+        ] (0cm + ##7, 0cm - ##5) rectangle (1cm * ##3 - ##8, -1cm * ##4 + ##6);
+      }%
+      {\relax}%
+    \end{scope}
+  }%
+  % ----------------------------------------------------------------------------
+  % Internal functions                                        Internal functions
+  % ----------------------------------------------------------------------------
+  % ---------
+  % setoutput
+  % ---------
+  %
+  % used my minterm, maxterm and dontcare
+  %
+  % #1  index: 0 .. 15
+  % #2  text
+  %
+  \newcommand{\setoutput}[2]
+  {%
+    % map index to matrix position
+    \ifthenelse{\equal{##1}{0}} {\renewcommand{\valueoutputAA}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{1}} {\renewcommand{\valueoutputAB}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{2}} {\renewcommand{\valueoutputAD}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{3}} {\renewcommand{\valueoutputAC}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{4}} {\renewcommand{\valueoutputBA}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{5}} {\renewcommand{\valueoutputBB}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{6}} {\renewcommand{\valueoutputBD}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{7}} {\renewcommand{\valueoutputBC}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{8}} {\renewcommand{\valueoutputDA}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{9}} {\renewcommand{\valueoutputDB}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{10}}{\renewcommand{\valueoutputDD}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{11}}{\renewcommand{\valueoutputDC}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{12}}{\renewcommand{\valueoutputCA}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{13}}{\renewcommand{\valueoutputCB}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{14}}{\renewcommand{\valueoutputCD}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{15}}{\renewcommand{\valueoutputCC}{##2}}{\relax}%
+  }%
+  % -----------
+  % printlabels
+  % -----------
+  %
+  % print all input labels
+  %
+  \newcommand{\printlabels}
+  {%
+    \draw[|-|] ( 4.3,  0.0) -- node[right] {\valueinputA} ( 4.3,  2.0);
+    \draw[|-|] (-0.3,  1.0) -- node[left]  {\valueinputB} (-0.3,  3.0);
+    \draw[|-|] ( 1.0, -0.3) -- node[below] {\valueinputD} ( 3.0, -0.3);
+    \draw[|-|] ( 2.0,  4.3) -- node[above] {\valueinputC} ( 4.0,  4.3);
+  }%
+  % ------------
+  % printindices
+  % ------------
+  %
+  % print all index numbers
+  %
+  \newcommand{\printindices}
+  {%
+    \begin{scope}[xshift=2mm, yshift=8mm]
+      % 1. row (top)
+      \node at (0, 3) {{\tiny\sffamily  0}};
+      \node at (1, 3) {{\tiny\sffamily  1}};
+      \node at (2, 3) {{\tiny\sffamily  3}};
+      \node at (3, 3) {{\tiny\sffamily  2}};
+      % 2. row
+      \node at (0, 2) {{\tiny\sffamily  4}};
+      \node at (1, 2) {{\tiny\sffamily  5}};
+      \node at (2, 2) {{\tiny\sffamily  7}};
+      \node at (3, 2) {{\tiny\sffamily  6}};
+      % 3. row
+      \node at (0, 1) {{\tiny\sffamily 12}};
+      \node at (1, 1) {{\tiny\sffamily 13}};
+      \node at (2, 1) {{\tiny\sffamily 15}};
+      \node at (3, 1) {{\tiny\sffamily 14}};
+      % 4. row (bottom)
+      \node at (0, 0) {{\tiny\sffamily  8}};
+      \node at (1, 0) {{\tiny\sffamily  9}};
+      \node at (2, 0) {{\tiny\sffamily 11}};
+      \node at (3, 0) {{\tiny\sffamily 10}};
+    \end{scope}
+  }%
+  % -----------
+  % printoutput
+  % -----------
+  %
+  % show all output values
+  %
+  \newcommand{\printoutput}
+  {%
+    \begin{scope}[xshift=0.5cm, yshift=0.5cm]
+      % 1. row (top)
+      \node at (0, 3) {\valueoutputAA};
+      \node at (1, 3) {\valueoutputAB};
+      \node at (2, 3) {\valueoutputAC};
+      \node at (3, 3) {\valueoutputAD};
+      % 2. row
+      \node at (0, 2) {\valueoutputBA};
+      \node at (1, 2) {\valueoutputBB};
+      \node at (2, 2) {\valueoutputBC};
+      \node at (3, 2) {\valueoutputBD};
+      % 3. row
+      \node at (0, 1) {\valueoutputCA};
+      \node at (1, 1) {\valueoutputCB};
+      \node at (2, 1) {\valueoutputCC};
+      \node at (3, 1) {\valueoutputCD};
+      % 4. row (bottom)
+      \node at (0, 0) {\valueoutputDA};
+      \node at (1, 0) {\valueoutputDB};
+      \node at (2, 0) {\valueoutputDC};
+      \node at (3, 0) {\valueoutputDD};
+    \end{scope}
+  }%
+  % ----------
+  % printareas
+  % ----------
+  %
+  % show all colorized areas
+  %
+  \newcommand{\printareas}{\relax}%
+  % ----------------------------------------------------------------------------
+  % Attributes                                                        Attributes
+  % ----------------------------------------------------------------------------
+  % some common colors
+  \definecolor{C1}{named}{Red}%
+  \definecolor{C2}{named}{Green}%
+  \definecolor{C3}{named}{Blue}%
+  \definecolor{C4}{named}{Sepia}%
+  \definecolor{C5}{named}{Cyan}%
+  \definecolor{C6}{named}{Magenta}%
+  \definecolor{C7}{named}{Yellow}%
+  \definecolor{C8}{named}{Gray}%
+  % flags
+  \newcommand{\showlabels}{TRUE}%
+  \newcommand{\showindices}{TRUE}%
+  % name of the function
+  \newcommand{\valuefname}{\relax}%
+  % names of the four input variables
+  \newcommand{\valueinputA}{$e_3$}%
+  \newcommand{\valueinputB}{$e_2$}%
+  \newcommand{\valueinputC}{$e_1$}%
+  \newcommand{\valueinputD}{$e_0$}%
+  % output values (matrix positions)
+  \newcommand{\valueoutputAA}{0}% 0
+  \newcommand{\valueoutputAB}{0}% 1
+  \newcommand{\valueoutputAC}{0}% 3
+  \newcommand{\valueoutputAD}{0}% 2
+  \newcommand{\valueoutputBA}{0}% 4
+  \newcommand{\valueoutputBB}{0}% 5
+  \newcommand{\valueoutputBC}{0}% 7
+  \newcommand{\valueoutputBD}{0}% 6
+  \newcommand{\valueoutputCA}{0}% 12
+  \newcommand{\valueoutputCB}{0}% 13
+  \newcommand{\valueoutputCC}{0}% 15
+  \newcommand{\valueoutputCD}{0}% 14
+  \newcommand{\valueoutputDA}{0}% 8
+  \newcommand{\valueoutputDB}{0}% 9
+  \newcommand{\valueoutputDC}{0}% 11
+  \newcommand{\valueoutputDD}{0}% 10
+}%
+{%
+  \begingroup
+    % show colored areas first (lowest layer)
+    \begin{scope}
+      % clip colored areas
+      \clip (-0.15, -0.15) rectangle (4.15, 4.15);
+      % show background
+      {\newcommand{\showtype}{FILL}\printareas}%
+      % show border
+      {\newcommand{\showtype}{DRAW}\printareas}%
+    \end{scope}
+    % show grid
+    \draw (0, 0) grid (4, 4);
+    % name of the function
+    \ifthenelse{\equal{\valuefname}{\relax}}{\relax}{\node at (-0.5, 4.5) {\valuefname};}
+    % labels
+    \ifthenelse{\equal{\showlabels}{TRUE}}{\printlabels}{\relax}
+    % indices
+    \ifthenelse{\equal{\showindices}{TRUE}}{\printindices}{\relax}
+    % output values
+    \printoutput
+  \endgroup
+}%
+
+% ----
+% KV32
+% ----
+%
+% This environment draws a 4x8 KV-map within a tikz environment.
+%
+\newenvironment{KV32}
+{%
+  % ----------------------------------------------------------------------------
+  % Public functions                                            Public functions
+  % ----------------------------------------------------------------------------
+  % --------
+  % nolabels
+  % --------
+  %
+  % disable input labels
+  %
+  \newcommand{\nolabels}
+  {%
+    \renewcommand{\showlabels}{FALSE}%
+  }%
+  % ---------
+  % noindices
+  % ---------
+  %
+  % disable index numbers
+  %
+  \newcommand{\noindices}
+  {%
+    \renewcommand{\showindices}{FALSE}%
+  }%
+  % -----------
+  % clearoutput
+  % -----------
+  %
+  % empty all function values
+  %
+  \newcommand{\clearoutput}
+  {%
+    \setoutput{0}{}%
+    \setoutput{1}{}%
+    \setoutput{2}{}%
+    \setoutput{3}{}%
+    \setoutput{4}{}%
+    \setoutput{5}{}%
+    \setoutput{6}{}%
+    \setoutput{7}{}%
+    \setoutput{8}{}%
+    \setoutput{9}{}%
+    \setoutput{10}{}%
+    \setoutput{11}{}%
+    \setoutput{12}{}%
+    \setoutput{13}{}%
+    \setoutput{14}{}%
+    \setoutput{15}{}%
+    \setoutput{16}{}%
+    \setoutput{17}{}%
+    \setoutput{18}{}%
+    \setoutput{19}{}%
+    \setoutput{20}{}%
+    \setoutput{21}{}%
+    \setoutput{22}{}%
+    \setoutput{23}{}%
+    \setoutput{24}{}%
+    \setoutput{25}{}%
+    \setoutput{26}{}%
+    \setoutput{27}{}%
+    \setoutput{28}{}%
+    \setoutput{29}{}%
+    \setoutput{30}{}%
+    \setoutput{31}{}%
+  }%
+  % --------
+  % function
+  % --------
+  %
+  % #1  name of the function
+  %
+  \newcommand{\function}[1]
+  {%
+    \renewcommand{\valuefname}{##1}%
+  }%
+  % ------
+  % inputA
+  % ------
+  %
+  % set the name of the input variable that toggles with the lowest frequency
+  %
+  % #1  name of the variable
+  %
+  \newcommand{\inputA}[1]
+  {%
+    \renewcommand{\valueinputA}{##1}%
+  }%
+  % ------
+  % inputB
+  % ------
+  %
+  % #1  name of the variable
+  %
+  \newcommand{\inputB}[1]
+  {%
+    \renewcommand{\valueinputB}{##1}%
+  }%
+  % ------
+  % inputC
+  % ------
+  %
+  % #1  name of the variable
+  %
+  \newcommand{\inputC}[1]
+  {%
+    \renewcommand{\valueinputC}{##1}%
+  }%
+  % ------
+  % inputD
+  % ------
+  %
+  % #1  name of the variable
+  %
+  \newcommand{\inputD}[1]
+  {%
+    \renewcommand{\valueinputD}{##1}%
+  }%
+  % ------
+  % inputE
+  % ------
+  %
+  % set the name of the input variable that toggles with the highest frequency
+  %
+  % #1  name of the variable
+  %
+  \newcommand{\inputE}[1]
+  {%
+    \renewcommand{\valueinputE}{##1}%
+  }%
+  % -------
+  % minterm
+  % -------
+  %
+  % #1  minterm number 0 ... 31
+  %
+  \newcommand{\minterm}[1]
+  {%
+    \setoutput{##1}{1}%
+  }%
+  % -------
+  % maxterm
+  % -------
+  %
+  % #1  maxterm number 0 ... 31
+  %
+  \newcommand{\maxterm}[1]
+  {%
+    \setoutput{##1}{0}%
+  }%
+  % --------
+  % dontcare
+  % --------
+  %
+  % #1  don't care number 0 ... 31
+  %
+  \newcommand{\dontcare}[1]
+  {%
+    \setoutput{##1}{X}%
+  }%
+  % -----
+  % areas
+  % -----
+  %
+  % define areas to fill
+  %
+  \newcommand{\areas}[1]
+  {%
+    \renewcommand{\printareas}{##1}
+  }%
+  % --------
+  % colorize
+  % --------
+  %
+  % #1 top row          (1..m)
+  % #2 left column      (1..n)
+  % #3 width            (number of columns)
+  % #4 height           (number of rows)
+  % #5 top    reduction (pt, cm, ...)
+  % #6 bottom reduction (pt, cm, ...)
+  % #7 left   reduction (pt, cm, ...)
+  % #8 right  reduction (pt, cm, ...)
+  % #9 color
+  %
+  \newcommand{\colorize}[9]
+  {%
+    \begin{scope}[xshift=0cm + (##2 - 1) * 1cm, yshift=4cm - (##1 - 1) * 1cm]
+      % background
+      \ifthenelse{\equal{\showtype}{FILL}}%
+      {%
+        \fill
+        [
+          opacity=0.5,
+          fill=##9,
+          rounded corners
+        ] (0cm + ##7, 0cm - ##5) rectangle (1cm * ##3 - ##8, -1cm * ##4 + ##6);
+      }%
+      {\relax}%
+      % border
+      \ifthenelse{\equal{\showtype}{DRAW}}%
+      {%
+        \draw
+        [
+          draw=##9,
+          line width=1pt,
+          rounded corners
+        ] (0cm + ##7, 0cm - ##5) rectangle (1cm * ##3 - ##8, -1cm * ##4 + ##6);
+      }%
+      {\relax}%
+    \end{scope}
+  }%
+  % ----------------------------------------------------------------------------
+  % Internal functions                                        Internal functions
+  % ----------------------------------------------------------------------------
+  % ---------
+  % setoutput
+  % ---------
+  %
+  % used my minterm, maxterm and dontcare
+  %
+  % #1  index: 0 .. 31
+  % #2  text
+  %
+  \newcommand{\setoutput}[2]
+  {%
+    % map index to matrix position
+    \ifthenelse{\equal{##1}{0}} {\renewcommand{\valueoutputAA}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{1}} {\renewcommand{\valueoutputAB}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{2}} {\renewcommand{\valueoutputAD}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{3}} {\renewcommand{\valueoutputAC}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{4}} {\renewcommand{\valueoutputBA}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{5}} {\renewcommand{\valueoutputBB}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{6}} {\renewcommand{\valueoutputBD}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{7}} {\renewcommand{\valueoutputBC}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{8}} {\renewcommand{\valueoutputDA}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{9}} {\renewcommand{\valueoutputDB}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{10}}{\renewcommand{\valueoutputDD}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{11}}{\renewcommand{\valueoutputDC}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{12}}{\renewcommand{\valueoutputCA}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{13}}{\renewcommand{\valueoutputCB}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{14}}{\renewcommand{\valueoutputCD}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{15}}{\renewcommand{\valueoutputCC}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{16}}{\renewcommand{\valueoutputAH}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{17}}{\renewcommand{\valueoutputAG}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{18}}{\renewcommand{\valueoutputAE}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{19}}{\renewcommand{\valueoutputAF}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{20}}{\renewcommand{\valueoutputBH}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{21}}{\renewcommand{\valueoutputBG}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{22}}{\renewcommand{\valueoutputBE}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{23}}{\renewcommand{\valueoutputBF}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{24}}{\renewcommand{\valueoutputDH}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{25}}{\renewcommand{\valueoutputDG}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{26}}{\renewcommand{\valueoutputDE}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{27}}{\renewcommand{\valueoutputDF}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{28}}{\renewcommand{\valueoutputCH}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{29}}{\renewcommand{\valueoutputCG}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{30}}{\renewcommand{\valueoutputCE}{##2}}{\relax}%
+    \ifthenelse{\equal{##1}{31}}{\renewcommand{\valueoutputCF}{##2}}{\relax}%
+  }%
+  % -----------
+  % printlabels
+  % -----------
+  %
+  % print all input labels
+  %
+  \newcommand{\printlabels}
+  {%
+    \draw[|-|] ( 8.3,  0.0) -- node[right] {\valueinputB} ( 8.3,  2.0);
+    \draw[|-|] (-0.3,  1.0) -- node[left]  {\valueinputC} (-0.3,  3.0);
+    \draw[|-|] ( 1.0, -0.3) -- node[below] {\valueinputE} ( 3.0, -0.3);
+    \draw[|-|] ( 5.0, -0.3) -- node[below] {\valueinputE} ( 7.0, -0.3);
+    \draw[|-|] ( 2.0,  4.3) -- node[above] {\valueinputD} ( 6.0,  4.3);
+    \draw[|-|] ( 4.0,  5.0) -- node[above] {\valueinputA} ( 8.0,  5.0);
+  }%
+  % ------------
+  % printindices
+  % ------------
+  %
+  % print all index numbers
+  %
+  \newcommand{\printindices}
+  {%
+    \begin{scope}[xshift=2mm, yshift=8mm]
+      % 1. row (top)
+      \node at (0, 3) {{\tiny\sffamily  0}};
+      \node at (1, 3) {{\tiny\sffamily  1}};
+      \node at (2, 3) {{\tiny\sffamily  3}};
+      \node at (3, 3) {{\tiny\sffamily  2}};
+      \node at (4, 3) {{\tiny\sffamily 18}};
+      \node at (5, 3) {{\tiny\sffamily 19}};
+      \node at (6, 3) {{\tiny\sffamily 17}};
+      \node at (7, 3) {{\tiny\sffamily 16}};
+      % 2. row
+      \node at (0, 2) {{\tiny\sffamily  4}};
+      \node at (1, 2) {{\tiny\sffamily  5}};
+      \node at (2, 2) {{\tiny\sffamily  7}};
+      \node at (3, 2) {{\tiny\sffamily  6}};
+      \node at (4, 2) {{\tiny\sffamily 22}};
+      \node at (5, 2) {{\tiny\sffamily 23}};
+      \node at (6, 2) {{\tiny\sffamily 21}};
+      \node at (7, 2) {{\tiny\sffamily 20}};
+      % 3. row
+      \node at (0, 1) {{\tiny\sffamily 12}};
+      \node at (1, 1) {{\tiny\sffamily 13}};
+      \node at (2, 1) {{\tiny\sffamily 15}};
+      \node at (3, 1) {{\tiny\sffamily 14}};
+      \node at (4, 1) {{\tiny\sffamily 30}};
+      \node at (5, 1) {{\tiny\sffamily 31}};
+      \node at (6, 1) {{\tiny\sffamily 29}};
+      \node at (7, 1) {{\tiny\sffamily 28}};
+      % 4. row (bottom)
+      \node at (0, 0) {{\tiny\sffamily  8}};
+      \node at (1, 0) {{\tiny\sffamily  9}};
+      \node at (2, 0) {{\tiny\sffamily 11}};
+      \node at (3, 0) {{\tiny\sffamily 10}};
+      \node at (4, 0) {{\tiny\sffamily 26}};
+      \node at (5, 0) {{\tiny\sffamily 27}};
+      \node at (6, 0) {{\tiny\sffamily 25}};
+      \node at (7, 0) {{\tiny\sffamily 24}};
+    \end{scope}
+  }%
+  % -----------
+  % printoutput
+  % -----------
+  %
+  % show all output values
+  %
+  \newcommand{\printoutput}
+  {%
+    \begin{scope}[xshift=0.5cm, yshift=0.5cm]
+      % 1. row (top)
+      \node at (0, 3) {\valueoutputAA};
+      \node at (1, 3) {\valueoutputAB};
+      \node at (2, 3) {\valueoutputAC};
+      \node at (3, 3) {\valueoutputAD};
+      \node at (4, 3) {\valueoutputAE};
+      \node at (5, 3) {\valueoutputAF};
+      \node at (6, 3) {\valueoutputAG};
+      \node at (7, 3) {\valueoutputAH};
+      % 2. row
+      \node at (0, 2) {\valueoutputBA};
+      \node at (1, 2) {\valueoutputBB};
+      \node at (2, 2) {\valueoutputBC};
+      \node at (3, 2) {\valueoutputBD};
+      \node at (4, 2) {\valueoutputBE};
+      \node at (5, 2) {\valueoutputBF};
+      \node at (6, 2) {\valueoutputBG};
+      \node at (7, 2) {\valueoutputBH};
+      % 3. row
+      \node at (0, 1) {\valueoutputCA};
+      \node at (1, 1) {\valueoutputCB};
+      \node at (2, 1) {\valueoutputCC};
+      \node at (3, 1) {\valueoutputCD};
+      \node at (4, 1) {\valueoutputCE};
+      \node at (5, 1) {\valueoutputCF};
+      \node at (6, 1) {\valueoutputCG};
+      \node at (7, 1) {\valueoutputCH};
+      % 4. row (bottom)
+      \node at (0, 0) {\valueoutputDA};
+      \node at (1, 0) {\valueoutputDB};
+      \node at (2, 0) {\valueoutputDC};
+      \node at (3, 0) {\valueoutputDD};
+      \node at (4, 0) {\valueoutputDE};
+      \node at (5, 0) {\valueoutputDF};
+      \node at (6, 0) {\valueoutputDG};
+      \node at (7, 0) {\valueoutputDH};
+    \end{scope}
+  }%
+  % ----------
+  % printareas
+  % ----------
+  %
+  % show all colorized areas
+  %
+  \newcommand{\printareas}{\relax}%
+  % ----------------------------------------------------------------------------
+  % Attributes                                                        Attributes
+  % ----------------------------------------------------------------------------
+  % some common colors
+  \definecolor{C1}{named}{Red}%
+  \definecolor{C2}{named}{Green}%
+  \definecolor{C3}{named}{Blue}%
+  \definecolor{C4}{named}{Sepia}%
+  \definecolor{C5}{named}{Cyan}%
+  \definecolor{C6}{named}{Magenta}%
+  \definecolor{C7}{named}{Yellow}%
+  \definecolor{C8}{named}{Gray}%
+  % flags
+  \newcommand{\showlabels}{TRUE}%
+  \newcommand{\showindices}{TRUE}%
+  % name of the function
+  \newcommand{\valuefname}{\relax}%
+  % names of the five input variables
+  \newcommand{\valueinputA}{$e_4$}%
+  \newcommand{\valueinputB}{$e_3$}%
+  \newcommand{\valueinputC}{$e_2$}%
+  \newcommand{\valueinputD}{$e_1$}%
+  \newcommand{\valueinputE}{$e_0$}%
+  % output values (matrix positions)
+  \newcommand{\valueoutputAA}{$0$}% 0
+  \newcommand{\valueoutputAB}{$0$}% 1
+  \newcommand{\valueoutputAC}{$0$}% 3
+  \newcommand{\valueoutputAD}{$0$}% 2
+  \newcommand{\valueoutputAE}{$0$}% 18
+  \newcommand{\valueoutputAF}{$0$}% 19
+  \newcommand{\valueoutputAG}{$0$}% 17
+  \newcommand{\valueoutputAH}{$0$}% 16
+  \newcommand{\valueoutputBA}{$0$}% 4
+  \newcommand{\valueoutputBB}{$0$}% 5
+  \newcommand{\valueoutputBC}{$0$}% 7
+  \newcommand{\valueoutputBD}{$0$}% 6
+  \newcommand{\valueoutputBE}{$0$}% 22
+  \newcommand{\valueoutputBF}{$0$}% 23
+  \newcommand{\valueoutputBG}{$0$}% 21
+  \newcommand{\valueoutputBH}{$0$}% 20
+  \newcommand{\valueoutputCA}{$0$}% 12
+  \newcommand{\valueoutputCB}{$0$}% 13
+  \newcommand{\valueoutputCC}{$0$}% 15
+  \newcommand{\valueoutputCD}{$0$}% 14
+  \newcommand{\valueoutputCE}{$0$}% 30
+  \newcommand{\valueoutputCF}{$0$}% 31
+  \newcommand{\valueoutputCG}{$0$}% 29
+  \newcommand{\valueoutputCH}{$0$}% 28
+  \newcommand{\valueoutputDA}{$0$}% 8
+  \newcommand{\valueoutputDB}{$0$}% 9
+  \newcommand{\valueoutputDC}{$0$}% 11
+  \newcommand{\valueoutputDD}{$0$}% 10
+  \newcommand{\valueoutputDE}{$0$}% 26
+  \newcommand{\valueoutputDF}{$0$}% 27
+  \newcommand{\valueoutputDG}{$0$}% 25
+  \newcommand{\valueoutputDH}{$0$}% 24
+}%
+{%
+  \begingroup
+    % show colored areas first (lowest layer)
+    \begin{scope}
+      % clip colored areas
+      \clip (-0.15, -0.15) rectangle (8.15, 4.15);
+      % show background
+      {\newcommand{\showtype}{FILL}\printareas}%
+      % show border
+      {\newcommand{\showtype}{DRAW}\printareas}%
+    \end{scope}
+    % show grid
+    \draw (0, 0) grid (8, 4);
+    % name of the function
+    \ifthenelse{\equal{\valuefname}{\relax}}{\relax}{\node at (-0.5, 4.5) {\valuefname};}
+    % labels
+    \ifthenelse{\equal{\showlabels}{TRUE}}{\printlabels}{\relax}
+    % indices
+    \ifthenelse{\equal{\showindices}{TRUE}}{\printindices}{\relax}
+    % output values
+    \printoutput
+  \endgroup
+}%

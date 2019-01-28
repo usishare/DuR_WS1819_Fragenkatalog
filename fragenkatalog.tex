@@ -1,0 +1,377 @@
+% layout and global options
+\documentclass
+[
+  draft    = true,
+  fontsize = 11pt,
+  parskip  = half-,
+  BCOR     = 0pt,
+  DIV      = 11,
+  ngerman,
+  dvipsnames
+]
+{scrartcl}
+
+% default packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{babel}
+% extra packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usepackage{url}
+% own packages
+\usepackage{mytemize}
+
+% basic calculations in TikZ
+\usetikzlibrary{calc}
+
+% use comma as decimal separator
+\sisetup{locale=DE, group-minimum-digits=4}
+
+% common code
+\input{tools}
+
+% ------------------------------------------------------------------------------
+\begin{document}
+% ------------------------------------------------------------------------------
+
+% --------------------------------------------------------------
+\section*{Digitaltechnik und Rechnerorganisation: Fragenkatalog}
+% --------------------------------------------------------------
+
+% ----------------------
+\subsection*{Grundlagen}
+% ----------------------
+\begin{mytemize}
+  \item Was besagt das Mooresche Gesetz? 
+        \begin{achim}
+          \begin{mytemize}
+            \item Verdopplung der Anzahl von Transitoren pro Fläche alle zwei Jahre
+          \end{mytemize}
+        \end{achim}
+  \item Erklären Sie das \glqq{}Design-Technology-Gap\grqq. 
+        \begin{achim}
+          \begin{mytemize}
+            \item 
+          \end{mytemize}
+        \end{achim}
+  \item Nennen Sie die Abstraktionsebenen (Hardware und Software) bei der Entwicklung digitaler Systeme. 
+        \begin{achim}
+          \begin{mytemize}
+            \item 
+          \end{mytemize}
+        \end{achim}
+  \item Erklären Sie die Begriffe \glqq{}digital\grqq{} und \glqq{}analog\grqq{} sowie \glqq{}zeitdiskret\grqq{} und \glqq{}zeitkontinuierlich\grqq. Geben Sie Beispiele. 
+        \begin{achim}
+          \begin{mytemize}
+            \item analog: der Wertebereich ist kontinuierlich
+            \item digital: der Wertetabelle ist diskret
+            \item zeitdiskret:
+            \item zeitkontinuierlich:
+          \end{mytemize}
+        \end{achim}
+  \item Wie funktioniert die Digitalisierung eines Signals? 
+        \begin{achim}
+          \begin{mytemize}
+            \item Abtastung
+            \item Quantisierung
+          \end{mytemize}
+        \end{achim}
+  \item Was ist das Abtasttheorem? 
+        \begin{achim}
+          \begin{mytemize}
+            \item Abtastfrequenz muss mindestens doppelt so groß sein wie die obere Grenzfrequenz des Signals
+          \end{mytemize}
+        \end{achim}
+  \item Was sind Quantisierungsfehler und Aliasing? 
+        \begin{achim}
+          \begin{mytemize}
+            \item Quantisierungsfehler entstehen durch die unterschiedliche Anzahl von Bits, die pro Abtastwert zur Verfügung stehen
+            \item Aliasing bewirkt bei zu geringer Abtastrate, dass zu hohe Frequenzen als tiefere Frequenzen auftauchen
+          \end{mytemize}
+        \end{achim}
+  \item Was sind digitale Logikpegel und wozu dienen sie? 
+        \begin{achim}
+          \begin{mytemize}
+            \item Nur zwei -- nicht zusammenhängende -- Bereiche im Wertebereich eines Signals
+                  tragen eine Bedeutung (0 bzw. 1). Im Vergleich zu analogen Pegeln steigt  
+                  dadurch die Robustheit gegenüber Rauschen.
+          \end{mytemize}
+        \end{achim}
+\end{mytemize}
+
+% -------------------------------
+\subsection*{Zahlendarstellungen}
+% -------------------------------
+\begin{mytemize}
+  \item Wie funktioniert die Konversion einer Binärzahl in eine Dezimalzahl?
+        \begin{achim}
+          \begin{equation*}
+            x_2=d_n\ldots d_1d_0
+            \quad\Rightarrow\quad
+            x_{10}=\sum_{i=0}^{n}d_i\cdot2^i
+          \end{equation*}
+        \end{achim}
+  \item Wie funktioniert die Konversion einer Dezimalzahl in eine Binärzahl?
+  \item Wie können negative Zahlen repräsentiert werden und was sind die Eigenschaften der Darstellungen?
+        \begin{achim}
+          \begin{mytemize}
+            \item Signierte Zahlendarstellung
+            \item Einerkomplement
+            \item Zweierkomplement
+          \end{mytemize}
+        \end{achim}
+  \item Erklären Sie die signierte Zahlendarstellung, Einerkomplement und Zweierkomplement.
+\end{mytemize}
+
+% -----------------------------
+\subsection*{Boolesche Algebra}
+% -----------------------------
+\begin{mytemize}
+  \item Was ist ein
+        \begin{mytemize}
+          \item neutrales Element?
+          \item inverses Element?
+        \end{mytemize}
+  \item Erklären Sie
+        \begin{mytemize}
+          \item Abgeschlossenheit
+          \item Assoziativgesetz
+          \item Kommutativgesetz
+          \item Distributivgesetz
+        \end{mytemize}
+  \item Was sind die Axiome einer Booleschen Algebra?
+  \item Erklären Sie
+        \begin{mytemize}
+          \item das Idempotenzgesetz
+          \item das Absorptionsgesetz
+          \item die De Morgan'schen Gesetze
+          \item das Dualitätsprinzip
+        \end{mytemize}
+  \item Was gilt für Operationen mit dem neutralen Element der anderen Operation?
+  \item Was ist eine Aussagenlogik?
+  \item Wie werden aussagenlogische Ausdrücke interpretiert?
+  \item Erklären Sie die Schaltalgebra!
+  \item Wandeln Sie einen Ausdruck der Schaltalgebra in eine Schaltung um (und umgekehrt).
+  \item Was ist die Gatterverzögerung?
+  \item Was ist eine Schaltfunktion?
+  \item Erklären Sie vier Arten der Darstellung von Schaltfunktionen!
+  \item Erklären Sie Minterm und Maxterm!
+  \item Erklären Sie die disjunktive und konjunktive Normalform!
+  \item Wie ist der Zusammenhang zwischen Mintermen bzw. Maxtermen und der Wertetabelle einer Schaltfunktion?
+\end{mytemize}
+
+% ------------------------------------
+\subsection*{Schaltnetze, Minimierung}
+% ------------------------------------
+\begin{mytemize}
+  \item Erklären Sie den Begriff Schaltnetz? Was ist ein Beispiel eines Schaltnetzes? Welche elektronische Schaltung kommt in einem Schaltnetz nicht vor?
+  \item Was ist eine Überdeckungsfunktion im Verfahren von Quine und McCluskey?
+  \item Was versteht man unter Dominanzprüfung im Verfahren von Quine und McCluskey?
+  \item Was ist ein Primterm? Was ist ein essentieller Primterm?
+  \item Nennen Sie die Schritte beim Entwurf eines Schaltnetzes!
+  \item Was ist ein Gatter? Was ist ein Schaltplan?
+  \item Warum ist eine Konversion in NAND oder NOR sinnvoll?
+  \item Erklären Sie die folgenden grundlegende Schaltnetze. Erläutern
+        Sie die Funktionsweise und geben Sie ein Beispiel des Einsatzzwecks.
+        Beschreiben Sie auch die Wertetabelle und Schaltung:
+        \begin{mytemize}
+          \item Halbaddierer
+          \item Volladdierer
+          \item Codierer
+          \item Decodierer
+          \item Multiplexer
+          \item Demultiplexer
+        \end{mytemize}
+\end{mytemize}
+
+% -----------------------
+\subsection*{Schaltwerke}
+% -----------------------
+\begin{mytemize}
+  \item Erklären Sie den Begriff Schaltwerk und zeichnen Sie eine Skizze eines Schaltwerks.
+  \item Nennen Sie Beispiele von Schaltwerken.
+  \item Wie wird ein Schaltwerk als endlicher Automat formal beschrieben?
+  \item Was ist der Unterschied zwischen Mealy Automat und Moore Automat. Erklären Sie diese Automaten.
+  \item Wie erfolgt die Umwandlung zwischen der Zustandsfolgetabelle und der graphischen Darstellung von Automaten?
+  \item Was ist die Zustandskodierung eines Automaten?
+  \item Welche Arten der Zustandskodierung kennen Sie?
+  \item Was versteht man unter Zustandsreduzierung?
+  \item Was ist $\lambda$ Äquivalenz zweier Zustände?
+  \item Erklären Sie ein Verfahren zur Zustandsminimierung.
+  \item Was ist ein Eingabewort der Länge $\lambda$ bei einem Automaten?
+  \item Wie kann man einen Mealy-Automaten in einen Moore Automaten umwandeln?
+  \item Welche Änderung des Verhaltens ergibt sich durch die Umwandlung?
+  \item Wie unterscheiden sich asynchrone und synchrone Schaltwerke?
+  \item Was ist ein Taktsignal?
+  \item Erklären Sie die Arten der Taktsteuerung.
+  \item Erklären Sie das getaktete und ungetaktete RS-FlipFlop
+  \item Erklären Sie das D-FlipFlop
+  \item Erklären Sie das JK-FlipFlop.
+  \item Geben Sie die Ein-/Ausgänge, Funktionsweise, die Übergangsbedingung und die Schaltungen an.
+  \item Was versteht man unter der Transparenz taktpegelgesteuerter Bausteine?
+  \item Was bedeutet dies für die Realisierung von Schaltwerken?
+  \item Wie kann die Transparenz eliminiert werden?
+  \item Erklären Sie das Master-Slave FlipFlop (Funktionsweise, Realisierung als Schaltung aus RS-FlipFlops).
+  \item Welche Forderungen in Bezug auf das Zeitverhalten ist bei einem Schaltwerk mit Master-Slave FlipFlops erforderlich? Begründen Sie die Antwort.
+  \item Erklären Sie das Flankengesteuerte FlipFlop und die Realisierung als Schaltung aus anderen FlipFlops.
+  \item Erklären Sie zweiflankengesteuerte Flipflops.
+  \item Was ist ein Register, ein Schieberegister?
+  \item \textbf{SRO II}
+  \item Wie funktioniert paralleles Laden?
+  \item Erklären Sie das Timing der flankengesteuerten FlipFlops mit den zugehörigen Größen (Vorbereitungszeit, Haltezeit, Taktperiode, Verzögerungszeit).
+  \item Was ist positiver und negativer Taktversatz (engl. Clock Skew)?
+  \item Wodurch entsteht Taktversatz und zu welchen Problemen führt er in einer Schaltung?
+  \item Wie kann man eine Verletzung der Haltezeit / eine Verletzung der Vorbereitungszeit verhindern?
+  \item Was sind die zeitlichen Anforderungen durch Taktversatz (d.h. Ungleichungen für Haltezeit und Vorbereitungszeit)?
+  \item Was ist ein Ausgangsschaltnetz und ein Übergangsschaltnetz?
+  \item Erklären Sie die Arten zur Ansteuerung der Speicherglieder (Diagrammmethode Koeffizientenvergleich, Fallunterscheidung)!
+  \item Was muss bei der Methode des Koeffizientenvergleichs in Bezug auf die Nebenbedingungen beachtet werden? Wie können die Nebenbedingungen eingehalten werden?
+  \item Wozu dient der Entwicklungssatz für eine Zustandsvariable?
+  \item Was sind die Schritte beim Entwurf eines Schaltwerks?
+  \item Erklären Sie synchroner Zähler und asynchroner Zähler! Wie werden diese als Schaltung realisiert!
+  \item Was ist ein Rechenwerk?
+  \item Erklären Sie den Begriff ALU!
+  \item Was ist eine n-Bit-Slice ALU, wozu dient dieses Konzept und wann kann es eingesetzt werden?
+  \item Was passiert bei der Schaltwerksanalyse?
+  \item Erklären Sie den Aufbau und die Analyse eines asynchronen Schaltwerks!
+  \item Wie kann man eine Transitionstabelle aus einem Schaltungsbild ableiten?
+  \item Wie erfolgt die Realisierung von Schaltnetzen mit Decodern?
+  \item Wie erfolgt die Realisierung von Schaltnetzen mit Multiplexern?
+  \item Wie erfolgt die Realisierung von Schaltnetzen mit ROMs?
+  \item Nennen Sie die Arten von Halbleiterspeichern!
+  \item Erklären Sie den internen Aufbau eines PLAs, die Verwendung von PLAs für die Entwicklung von Schaltnetzen und die Vorteile/Nachteile.
+  \item Wodurch wird die Größe eines PLAs bestimmt? Welche Funktionen können mit einem gegebenen PLA realisiert werden?
+  \item Vergleichen Sie einen PLA mit einem ROM-Baustein.
+  \item Erklären Sie den internen Aufbau eines PALs, die Verwendung von PALs für die Entwicklung von Schaltnetzen und die Vorteile/Nachteile.
+  \item Was ist ein Gray-Code?
+  \item Geben Sie einen Überblick über die Funktionsweise von Field-Programmable Gate Arrays (FPGAs).
+  \item Was ist ein LUT und wie wird es realisiert?
+  \item Wie beschreibt man ein System auf der Register-Transfer-Ebene?
+  \item Erklären Sie die Realisierung eines Registertransfers mit Steuerfunktionen!
+  \item Erklären Sie die Realisierung eines Paralleltransfers!
+  \item Erklären Sie die Realisierung einer Bedingungsanweisung!
+  \item Was ist ein Bustransfer?
+\end{mytemize}
+
+% -----------------------------------------
+\subsection*{Steuerwerk und Operationswerk}
+% -----------------------------------------
+\begin{mytemize}
+  \item Erklären Sie Steuerwerk, Operationswerk und deren Ein- und Ausgänge.
+  \item Skizzieren Sie auch den internen Aufbau von Steuer- und Operationswerk.
+  \item Was sind die Schritte beim Entwurf eines Steuerwerks?
+  \item Aus welchen Elementen besteht ein ASM-Diagramm?
+  \item Was ist der Unterschied zwischen einem ASM-Diagramm und einem Flowchart?
+  \item Wie erfolgt die Abbildung eines ASM Diagramms in einen Automaten?
+  \item Nennen Sie die Steuerformen für Steuerwerke!
+  \item Erklären Sie die One-Hot-Kodierung anhand einer Skizze!
+  \item Erklären Sie die Register-Decoder Steuerung anhand einer Skizze!
+  \item Wozu wird die Zustandskodierung in einem Steuerwerk benötigt und warum ist die Wahl der Zustandskodierung von Bedeutung?
+  \item Nennen und erklären Sie heuristische Regeln für die Zustandskodierung!
+  \item Erklären sie Mikroprogrammgesteuerte Kontrolle anhand einer Skizze.
+  \item Wie funktioniert ein Sequenzer auf Basis eines Mikroprogrammzählers?
+  \item Wie müssen die zugehörigen Mikroinstruktionen aussehen?
+  \item Erklären Sie horizontale, vertikale und diagonale Mikroprogrammierung und deren Vor- und Nachteile!
+\end{mytemize}
+
+% --------------------------
+\subsection*{Mikroprozessor}
+% --------------------------
+\begin{mytemize}
+  \item Was ist ein Mikroprozessor und aus welchen Komponenten besteht er?
+  \item Erklären Sie die Begriffe Signalprozessor, Mikrocontroller und SoC.
+  \item Was ist das Von-Neumann-Prinzip?
+  \item Skizzieren Sie einen vollständigen Prozessor mit Operationswerk, mikroprogrammiertem Steuerwerk, Speichereinheiten für Daten und Befehle, einem Befehlsregister (IR), Befehlsdecoder und einer Ein-/Ausgabeeinheit.
+  \item Skizzieren Sie das Operationswerk eines Prozessors mit einer ALU, Registern, Decoder und Multiplexern.
+  \item Erklären Sie die Verwendung des Decoders und der Multiplexer zur Bereitstellung von Eingabedaten bzw. zum Speichern der Ausgabedaten der ALU!
+  \item Was ist das Operationsprinzip der von-Neumann-Architektur?
+  \item Erklären Sie die Begriffe Prozessorarchitektur, Mikroarchitektur und Prozessorfamilie!
+  \item Was sind die Bestandteile der Prozessorarchitektur?
+  \item Welche Befehlsformate kennen Sie? Geben Sie Beispiele.
+  \item Nennen und erklären Sie die Gruppen von Befehlen in einem Befehlssatz. Geben Sie Beispiele für jede Gruppe!
+  \item Wie werden Befehlssatz-Architekturen klassifiziert?
+  \item Was definiert das Speichermodell einer Prozessorarchitektur?
+  \item Welche Speicheradressräume für Daten kennen Sie?
+  \item Wie funktioniert ein Stack?
+  \item Wie funktioniert implizite Operandenadressierung?
+  \item Nennen und erklären Sie die expliziten Adressierungsarten! Geben Sie jeweils ein Beispiel.
+  \item Erklären Sie die Realisierung der Adressierungsarten in Hardware anhand einer Skizze!
+  \item Erklären Sie RISC (Reduced Instruction Set Computer)!
+  \item Wie funktioniert ein Interrupt und wozu wird dieser benötigt?
+  \item Erklären Sie Daisy Chain! Geben Sie auch eine Skizze.
+  \item Erklären Sie Interrupt-Controller! Geben Sie auch eine Skizze mit den Registern im Interrupt-
+  \item Controller sowie den Signalen zur CPU und zu Interruptquellen.
+  \item Erklären Sie die Befehlsausführungphasen \glqq{}Decodierphase\grqq{} und \glqq{}Ausführungsphase\grqq.
+  \item Erklären Sie Pipelining. Welche Anforderungen bestehen für korrekte Exekution bei Pipelining?
+\end{mytemize}
+
+% ------------------------------
+\subsection*{Speicherverwaltung}
+% ------------------------------
+\begin{mytemize}
+  \item Was sind die Anforderungen an Speicherverwaltung?
+  \item Welche Arten von Speicher in einem Rechnersystem kennen Sie?
+  \item In welchen Eigenschaften unterscheiden sich diese Speicher?
+  \item Erklären Sie Fixed Partitioning und Dynamic Partitioning?
+  \item Was ist Fragmentierung des Speichers?
+  \item Erklären Sie Relocation?
+  \item Erklären Sie die Adressübersetzung bei relativen Adressen.
+  \item Zeichnen Sie eine Skizze mit den notwendigen Registern, Addierer/Komparator und dem Prozess-Image.
+  \item Wie funktioniert Paging?
+  \item Geben Sie ein Beispiel für die Adressumsetzung beim Paging!
+  \item Wie funktioniert Segmentierung?
+  \item Geben Sie ein Beispiel für die Adressumsetzung bei Segmentierung!
+  \item Was ist virtueller Speicher? Erklären Sie auch die Begriffe Memory Fault und Trashing.
+  \item Wie funktioniert ein Translation Lookaside Buffer?
+  \item Erklären Sie den Begriff Fetch Policy!
+  \item Erklären Sie den Begriff Replacement Policy, geben und erklären Sie drei Beispiele!
+  \item Was ist das Resident Set?
+\end{mytemize}
+
+% ---------------------------
+\subsection*{Mikrocontroller}
+% ---------------------------
+\begin{mytemize}
+  \item Erstellen Sie eine Zeichnung des Schalenmodells eines Mikrocontrollers!
+  \item Wozu werden zeitbasierte Komponenten eines Mikrocontrollers benötigt?
+  \item Erklären Sie die Zähler- und Zeitgebereinheit und geben Sie Anwendungsbeispiele!
+  \item Erklären Sie die \glqq{}Capture und Compare\grqq-Einheit und geben Sie Anwendungsbeispiele!
+  \item Wie funktioniert Pulsweitenmodulation?
+  \item Erklären Sie einen Pulsweitenmodulator!
+  \item Erklären Sie eine Watchdog-Einheit!
+  \item Erklären Sie Echtzeit Ein-/Ausgabeeinheiten!
+  \item Was ist der Unterschied zwischen isolierter Adressierung und gemeinsamer Adressierung zur Anbindung des E/A-Adressraums an den Prozessorkern?
+  \item Erklären Sie digitale parallele Ein-/Ausgabeeinheiten!
+  \item Erklären Sie digitale serielle Ein-/Ausgabeeinheiten!
+  \item Wie funktioniert asynchrone und synchrone Übertragung?
+  \item Erklären sie das Serial Peripheral Interface!
+  \item Erklären Sie die Übertragungscodes NRZ, Manchester und MFM. Geben Sie Beispiele!
+  \item Wie kann der Ausgleich von Geschwindigkeitsunterschieden zwischen E/A und Prozessorkern erfolgen?
+  \item Erklären Sie die Analog/Digital-Wandlung und Digital/Analog -Wandlung anhand eines Funktionsgraphen (horizontale Achse: digitaler Wert zwischen 0 und 2 n-1 , vertikale Achse: analoger Spannungswert)!
+  \item Was sind die wichtigsten Kriterien für die Auswahl eines Wandlers?
+  \item Nennen und erklären Sie die Wandlungsfehler!
+  \item Wie funktioniert das Wägeverfahren zur Analog/Digital-Wandlung?
+  \item Welche Fehler gibt es bei der Analog/Digital Wandlung zusätzlich zu den Fehlern der D/A-Wandlung?
+  \item Erklären Sie den Ablauf eines DMA Transfers und den Ablauf eines Datentransfers per Software!
+  \item Was ist der Unterschied zwischen Fly-By-Transfer und Two-Cycle-Transfer?
+  \item Skizzieren Sie den Aufbau eines DMA-Controllers!
+  \item Was ist Einzeltransfer, Blocktransfer und Demand Transfer?
+  \item Erklären Sie Daten-Multiplexing und Daten/Adress-Multiplexing bei einem Erweiterungsbus.
+  \item Was ist ein Burst-Transfer?
+  \item Geben Sie eine Formel für die elektrische Leistung in CMOS Schaltungen an und benennen Sie die verschiedenen Größen!
+  \item Wie ist der Zusammenhang zwischen Spannung und Taktfrequenz in einer Schaltung?
+  \item Wie ist der Zusammenhang zwischen elektrischer Leistung und Spannung/Taktfrequenz?
+  \item Wie funktioniert Dynamic Voltage Frequency Scaling?
+\end{mytemize}
+
+% ------------------------------------------------------------------------------
+\end{document}
+% ------------------------------------------------------------------------------
+
