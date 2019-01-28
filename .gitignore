@@ -9,5 +9,7 @@
 *.lot
 *.thm
 *.toc
+*.synctex.gz
+makefile
 fragenkatalog.pdf
 
