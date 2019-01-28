@@ -10,6 +10,7 @@
 *.thm
 *.toc
 *.synctex.gz
-makefile
 fragenkatalog.pdf
+glyph2code
+makefile
 
