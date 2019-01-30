@@ -48,6 +48,8 @@
 % github repository
 \url{https://github.com/usishare/DuR_WS1819_Fragenkatalog.git}
 
+\newsavebox{\tempbox}%
+
 % ----------------------
 \subsection*{Grundlagen}
 % ----------------------
@@ -66,9 +68,27 @@
         \end{achim}
   \item Nennen Sie die Abstraktionsebenen (Hardware und Software) bei der Entwicklung digitaler Systeme. 
         \begin{achim}
-          \begin{mytemize}
-            \item 
-          \end{mytemize}
+          \begin{center}
+            \begin{tikzpicture}
+              \newcommand{\nodebox}[2]
+              {%
+                \begin{scope}[shift={#1}]
+                  \draw[line width=0.6pt] (-6em, -5mm) rectangle (6em, 5mm);
+                  \node at (0, 0) {#2};
+                \end{scope}%
+              }%
+              \nodebox{(0, 4)}{Algorithmen}
+              %\begin{mybox}{(0, 3)}
+                %Betriebssystemebene
+              %\end{mybox}
+              %\begin{mybox}{(2, 0)}
+                %Assembler
+              %\end{mybox}
+              %\begin{mybox}{(1, 0)}
+                %Maschinensprache
+              %\end{mybox}
+            \end{tikzpicture}
+          \end{center}
         \end{achim}
   \item Erklären Sie die Begriffe \glqq{}digital\grqq{} und \glqq{}analog\grqq{} sowie \glqq{}zeitdiskret\grqq{} und \glqq{}zeitkontinuierlich\grqq. Geben Sie Beispiele. 
         \begin{achim}
