@@ -126,7 +126,28 @@
             x_{10}=\sum_{i=0}^{n}d_i\cdot2^i
           \end{equation*}
         \end{achim}
+        \begin{moritz}
+        	\item[] \textbf{Binär zu Dezimal:} Man multipliziert die einzelnen 							Binärzahlen mit 2 hoch dem Stellenwert der Binärzahl.
+	\item[] Zum Beispiel: 1010$\rightarrow$ $1*2^3+0*2^2+1*2^1+0*2^0=10$
+	
+        \end{moritz}
   \item Wie funktioniert die Konversion einer Dezimalzahl in eine Binärzahl?
+  \begin{moritz}
+  	\item[] \textbf{Dezimal zu Binär:} Die Dezimal wird durch 2 mit Rest 						geteilt. Man teilt dann das geteilte durch wieder 							durch 2 mit Rest bis man 1 durch 2 geteilt hat. Der 						Rest der Division bildet die Binärzahl von Unten nach 					oben gelesen.
+	\item[]Zum Beispiel: 11$\rightarrow$1101
+		\begin{center}
+			\setlength{\tabcolsep}{4ex}
+			\begin{tabular}{|l|l|l|l|}
+				\hline
+				Schritte & Divison & Ergebenis & Rest \\ \hline
+				1 & 11/2 & 5 & 1 \\ \hline
+				2 & 5/2 & 2 & 1 \\ \hline
+				3 & 2/2 & 1 & 0 \\ \hline
+				4 & 1/2 & 0 & 1 \\ \hline
+			\end{tabular}
+		\end{center}
+	\item Wie können negative Zahlen repräsentiert werden und was sind 					die Eigenschaften der  Darstellungen? Erklären Sie die 						signierte Zahlendarstellung, Einerkomplement und 							Zweierkomplement. 
+  \end{moritz}
   \item Wie können negative Zahlen repräsentiert werden und was sind die Eigenschaften der Darstellungen?
         \begin{achim}
           \begin{mytemize}
