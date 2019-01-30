@@ -30,6 +30,7 @@
 
 % basic calculations in TikZ
 \usetikzlibrary{calc}
+\usetikzlibrary{decorations.pathreplacing}
 
 % use comma as decimal separator
 \sisetup{locale=DE, group-minimum-digits=4}
@@ -73,20 +74,20 @@
               \newcommand{\nodebox}[2]
               {%
                 \begin{scope}[shift={#1}]
-                  \draw[line width=0.6pt] (-6em, -5mm) rectangle (6em, 5mm);
+                  \draw[line width=0.6pt] (-6em, -4mm) rectangle (6em, 4mm);
                   \node at (0, 0) {#2};
                 \end{scope}%
               }%
-              \nodebox{(0, 4)}{Algorithmen}
-              %\begin{mybox}{(0, 3)}
-                %Betriebssystemebene
-              %\end{mybox}
-              %\begin{mybox}{(2, 0)}
-                %Assembler
-              %\end{mybox}
-              %\begin{mybox}{(1, 0)}
-                %Maschinensprache
-              %\end{mybox}
+              \nodebox{(0,  3.5)}{Algorithmen}
+              \nodebox{(0,  2.5)}{Betriebssystemebene}
+              \nodebox{(0,  1.5)}{Assembler}
+              \nodebox{(0,  0.5)}{Maschinensprache}
+              \nodebox{(0, -0.5)}{Mikroarchitektur}
+              \nodebox{(0, -1.5)}{Digitale Logik}
+              \nodebox{(0, -2.5)}{Transistoren}
+              \nodebox{(0, -3.5)}{IC Processing / Physik}
+              \draw[line width=0.6pt, decorate, decoration=brace] (-7em, -3.9) -- node[left=1mm]{Hardware} (-7em, -0.1);
+              \draw[line width=0.6pt, decorate, decoration=brace] (-7em,  0.1) -- node[left=1mm]{Software} (-7em,  3.9);
             \end{tikzpicture}
           \end{center}
         \end{achim}
