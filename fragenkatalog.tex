@@ -185,6 +185,14 @@
                     \item der Additionsalgorithmuss benötigt eine Fallunterscheidung bezüglich des Vorzeichens der beiden Operanden
                   \end{mytemize}
             \item Einerkomplement-Darstellung
+                  \begin{mytemize}
+                    \item negative Zahlen werden nicht durch ein führendes Vorzeichenbit gekennzeichnet,
+                          sondern dadurch, dass alle Bits invertiert werden
+                    \item positive Zahlen können immer noch an einer führenden Null erkannt werden
+                    \item für die 0 gibt es leider immer noch zwei verschiedene Darstellungen: $0\ldots0$ und $1\ldots1$
+                    \item der Additionsalgorithmus funktioniert hier ohne Fallunterscheidung
+                    \item die Überschreitung der 0 muss allerdings berücksichtigt werden (weil sie zweimal vorhanden ist)
+                  \end{mytemize}
             \item Zweierkomplement-Darstellung
           \end{mytemize}
         \end{achim}
