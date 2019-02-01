@@ -274,6 +274,35 @@
                 \end{achim}
         \end{mytemize}
   \item Was sind die Axiome einer Booleschen Algebra?
+        \begin{achim}
+          Eine Menge $B$ mit zwei zweistelligen Operationen $\oplus$ und $\otimes$
+          heißt genau dann \emph{Boolesche Algebra}, wenn folgende Axiome gelten:
+          \begin{mytemize}
+            \item Abgeschlossenheit bezüglich $\oplus$
+            \item Abgeschlossenheit bezüglich $\otimes$
+            \item Neutrales Element bezüglich $\oplus$: $(N)$ull
+            \item Neutrales Element bezüglich $\otimes$: $(E)$ins
+            \item $\oplus$ ist kommutativ
+            \item $\otimes$ ist kommutativ
+            \item $\oplus$ ist distributiv über $\otimes$
+                  \begin{equation*}
+                    a\oplus(b\otimes c)=a\oplus b\otimes a\oplus c
+                  \end{equation*}
+            \item $\otimes$ ist distributiv über $\oplus$
+                  \begin{equation*}
+                    a\otimes(b\oplus c)=a\otimes b\oplus a\otimes c
+                  \end{equation*}
+            \item Falls $N$ und $E$ existieren und eindeutig sind,
+                  dann gibt es für jedes Element $a\in B$ ein Element $\bar{a}\in B$
+                  (genannt Komplement) mit
+                  \begin{equation*}
+                    a\oplus\bar{a}=E
+                    \qquad\text{und}\qquad
+                    a\otimes\bar{a}=N
+                  \end{equation*}
+            \item es gibt mindestens zwei Elemente $a,b\in B$, für die $a\neq b$ gilt
+          \end{mytemize}
+        \end{achim}
   \item Erklären Sie
         \begin{mytemize}
           \item das Idempotenzgesetz
