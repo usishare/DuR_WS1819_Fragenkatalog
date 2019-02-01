@@ -194,6 +194,17 @@
                     \item die Überschreitung der 0 muss allerdings berücksichtigt werden (weil sie zweimal vorhanden ist)
                   \end{mytemize}
             \item Zweierkomplement-Darstellung
+                  \begin{mytemize}
+                    \item man erhält ein geschlossenes Zahlensystem mit $2^n$ verschiedenen Werten von $-2^{n-1}$ bis $2^{n-1}-1$
+                    \item das höchstwertige Bit der Binärzahl steht nicht für $2^n$, sondern für $-2^n$
+                          \begin{equation*}
+                            1010=1\cdot-2^3+0\cdot2^2+1\cdot2^1+0\cdot2^0=-8+2=-6
+                          \end{equation*}
+                    \item man erhält die Zweierkomplement-Darstellung einer Zahl zum Beispiel, indem man zu ihrer
+                          Einerkomplement-Darstellung die Zahl 1 addiert
+                    \item die Zahl 0 besitzt eine eindeutige Darstellung
+                    \item es kann ohne Fallunterscheidungen und Sondefälle addiert werden
+                  \end{mytemize}
           \end{mytemize}
         \end{achim}
 \end{mytemize}
