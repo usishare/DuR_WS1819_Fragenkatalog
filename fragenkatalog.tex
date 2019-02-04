@@ -306,11 +306,43 @@
   \item Erklären Sie
         \begin{mytemize}
           \item das Idempotenzgesetz
+            \begin{evelyn}
+                \begin{equation*}
+                    a\oplus a=a
+                    \qquad\text{und}\qquad
+                    a\otimes a=a
+                \end{equation*}
+            \end{evelyn}
           \item das Absorptionsgesetz
+            \begin{evelyn}
+                \begin{equation*}
+                    a\oplus(a\otimes b)=a
+                    \qquad\text{und}\qquad
+                    a\otimes(a\oplus b)=a
+                \end{equation*}
+            \end{evelyn}
           \item die De Morgan'schen Gesetze
+            \begin{evelyn}
+                \begin{equation*}
+                    \overline{a\oplus b}=\bar{a}\otimes\bar{b}
+                    \qquad\text{und}\qquad
+                    \overline{a\otimes b}=\bar{a}\oplus\bar{b}
+                \end{equation*}
+            \end{evelyn}
           \item das Dualitätsprinzip
+            \begin{evelyn}
+                Eine Aussage bleibt gültig wenn die Operationen $\oplus$ und $\otimes$, sowie die neutralen Elemente $N$ und $E$ gleichzeitig vertauscht werden.
+            \end{evelyn}
         \end{mytemize}
   \item Was gilt für Operationen mit dem neutralen Element der anderen Operation?
+        \begin{evelyn}
+            Sei $E$ das neutrale Element bzgl. $\otimes$ und $N$ das neutrale Element bzgl. $\oplus$. Dann gilt:
+                \begin{equation*}
+                    a\oplus E=E
+                    \qquad\text{und}\qquad
+                    a\otimes N=N
+                \end{equation*}
+        \end{evelyn}
   \item Was ist eine Aussagenlogik?
   \item Wie werden aussagenlogische Ausdrücke interpretiert?
   \item Erklären Sie die Schaltalgebra!
