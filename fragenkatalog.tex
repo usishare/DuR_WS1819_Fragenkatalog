@@ -475,17 +475,23 @@
         Beschreiben Sie auch die Wertetabelle und Schaltung:
         \begin{mytemize}
           \item Halbaddierer
-                \begin{achim}
+                \begin{karsten}
                   \begin{mytemize}
-                    \item 
+                    \item 1-bit-Addition mit Ausgabe der Summe und des Carry-Bits
+                    \item Summanden werden jeweils in ein $AND-Gatter(\&)$ und $XOR-Gatter(=1)$ gespeist
+                    \item XOR enthält den Summanden
+                    \item AND gibt das Carry-Bit aus
                   \end{mytemize}
-                \end{achim}
+                \end{karsten}
           \item Volladdierer
-                \begin{achim}
+                \begin{karsten}
                   \begin{mytemize}
-                    \item 
+                    \item 1-bit-Addition mit Ausgabe der Summe und des Carry-Bits unter Berücksichtigung eines Übertrags aus einer vorherigen Addition
+                    \item zu addierende Bits werden im Halbaddierer verrechnet
+                    \item Carry-Bit aus dieser Addition ist Gesamt-Carry des Volladdierers
+                    \item Carry-Bit der vorh. Addition wird in 2. Halbaddierer mit der Summe verrechnet
                   \end{mytemize}
-                \end{achim}
+                \end{karsten}
           \item Codierer
                 \begin{achim}
                   \begin{mytemize}
@@ -531,10 +537,50 @@
   \item Wie kann man einen Mealy-Automaten in einen Moore Automaten umwandeln?
         \begin{mytemize}
           \item Welche Änderung des Verhaltens ergibt sich durch die Umwandlung?
+          \begin{karsten}
+          	\begin{itemize}
+          		\item Es ergibt sich eine Taktverzögerung um 1 Takt
+          	\end{itemize}
+          \end{karsten}
         \end{mytemize}
   \item Wie unterscheiden sich asynchrone und synchrone Schaltwerke?
   \item Was ist ein Taktsignal?
+	  \begin{karsten}
+	  	\begin{itemize}
+	  		\item Ein Takt wechselt periodisch zwischen 0 (LOW) und 1 (HIGH)
+	  	\end{itemize}
+	  \end{karsten}
   \item Erklären Sie die Arten der Taktsteuerung.
+	  \begin{karsten}
+	  	\begin{itemize}
+	  		\item Taktzustandssteuerung
+	  			\begin{itemize}
+	  				\item Werte können nur bei stabilem Zustand gelesen/geschrieben werden
+	  				\item Verarbeitung(lesen/schreiben) erfolgt bei C=1
+	  				\item bei C=0 erfolgt keine Verarbeitung
+	  			\end{itemize}
+	  	\end{itemize}
+  		\begin{itemize}
+	  		\item Zweiflankensteuerung
+	  		\begin{itemize}
+	  			\item Werte werden bei C=1 Flanke gelesen
+	  			\item Werte werden bei C=0 Flanke geschrieben
+	  		\end{itemize}
+  		\end{itemize}
+	  	\begin{itemize}
+	  		\item Taktflankensteuerung
+	  			\begin{itemize}
+	  				\item Werte werden nur bei aufsteigender/absteigender Flanke gelesen/geschrieben
+	  			\end{itemize}
+	  	\end{itemize}
+		\begin{itemize}
+			\item Zweiflankensteuerung
+				\begin{itemize}
+					\item Werte werden bei steigender Flanke gelesen
+					\item Werte werden bei fallender Flanke geschrieben
+				\end{itemize}
+		\end{itemize}
+	  \end{karsten}
   \item Erklären Sie das getaktete und ungetaktete RS-FlipFlop
         \begin{mytemize}
           \item Ein-/Ausgänge
@@ -668,7 +714,43 @@
         \end{mytemize}
   \item Was sind die Schritte beim Entwurf eines Steuerwerks?
   \item Aus welchen Elementen besteht ein ASM-Diagramm?
+	  \begin{karsten}
+	  	\begin{mytemize}
+	  		\item ASM steht für "Algorithmic State Machine Chart"
+	  		\item im ASM-Diagramm können 3 verschiedene "Boxen" auftreten
+	  		\begin{mytemize}
+	  			\item Zustandsboxen
+	  				\begin{mytemize}
+	  					\item In welchem Zustand befindet sich die Hardware (Speicherelemente, Steuersignale, etc.)
+	  					\item Es wird eine Operation durchgeführt
+	  					\item \includegraphics[width=0.8\linewidth]{Zeichnungen/ASM-Zustandsbox}
+	  				\end{mytemize}
+	  		\end{mytemize}
+	  		\begin{mytemize}
+	  			\item Entscheidungsboxen
+	  				\begin{mytemize}
+	  					\item Es wird auf ein Steuersignal reagiert
+	  					\item je nach Zustand des Signals (0 oder 1) wird der entsprechende Pfad gewählt
+	  					\item \includegraphics[width=0.8\linewidth]{Zeichnungen/ASM-Entscheidungsbox}
+	  				\end{mytemize}
+	  		\end{mytemize}
+		  	\begin{mytemize}
+		  		\item Bedingte Zustandsboxen
+		  			\begin{mytemize}
+		  				\item Ein Zustand kann nur über eine Bedingung erreicht werden
+		  				\item \includegraphics[width=0.8\linewidth]{Zeichnungen/ASM-Bed-Zustandsbox}
+		  			\end{mytemize}
+		  	\end{mytemize}
+	  	\end{mytemize}
+	  \end{karsten}
   \item Was ist der Unterschied zwischen einem ASM-Diagramm und einem Flowchart?
+  	\begin{karsten}
+  		\begin{mytemize}
+  			\item Der generelle Aufbau sit der gleiche
+  			\item Beim Flowchart finden alle Entscheidungen, Zustandsboxen, etc NACHEINANDER statt
+  			\item beim ASM-Diagramm können Entscheidungen und Zustandsboxen innerhalb eines Taktes bearbeitet werden
+  		\end{mytemize}
+	\end{karsten}
   \item Wie erfolgt die Abbildung eines ASM Diagramms in einen Automaten?
   \item Nennen Sie die Steuerformen für Steuerwerke!
   \item Erklären Sie die One-Hot-Kodierung anhand einer Skizze!
